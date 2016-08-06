@@ -1,15 +1,18 @@
-$(window).scroll(function(e){
-  if ($(this).scrollTop() > 100) {
-    $('a.up').fadeIn();
-  } else {
-    $('a.up').stop().fadeOut();
-  }
-  e.preventDefault();
-});
-$('a.up').click(function(ff){
-  $("body").animate({ scrollTop: 0 }, 600);
-  ff.preventDefault();
-});
+(function($) {
+	$(window).scroll(function(e){
+	  if ($(this).scrollTop() > 100) {
+	    $('a.up').fadeIn();
+	  } else {
+	    $('a.up').stop().fadeOut();
+	  }
+	  e.preventDefault();
+	});
+	$('a.up').click(function(ff){
+	  $("body").animate({ scrollTop: 0 }, 600);
+	  ff.preventDefault();
+	});
+})(jQuery);
+
 function send_email() {
 	$("#error_email").hide();
 	var email_input = $("#email_input").val();
