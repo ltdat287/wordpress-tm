@@ -10,12 +10,28 @@
 
             </ol>
             <div class="carousel-inner">
-                <div class="item active">
+
+            <?php 
+            // Get all sticky posts, but only sticky posts
+            $sticky = get_option( 'sticky_posts' ); 
+            $args = array(
+                'posts_per_page' => 3,
+                'post__in' => $sticky
+            );
+            $i = 0;
+            $postQuery = get_posts($args);
+            foreach ( $postQuery as $post ) : setup_postdata($post);
+                if ( has_post_thumbnail($post->ID) ) {
+                    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'home-slider' );
+                    $i++;
+            ?>
+
+                <div class="item <?php echo (($i == 1) ? 'active' : ''); ?>">
                     <div class="container">
 
                         <div class="carousel-caption">
-                            <h1>Miễn phí sử dụng thiết bị EDC cho 1000 đại lý đầu tiên, không cần đặt cọc.</h1>
-                            <p><a class="btn btn-true" href="#" role="button">Tìm hiểu thêm <i class="fa fa-chevron-circle-right"></i></a></p>
+                            <h1><?php the_title(); ?></h1>
+                            <p><a class="btn btn-true" href="<?php the_permalink(); ?>" role="button">Tìm hiểu thêm <i class="fa fa-chevron-circle-right"></i></a></p>
                         </div>
 
                     </div>
@@ -23,45 +39,13 @@
 
                     </div>
 
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide-1.jpg" alt="First slide" />
+                    <img src="<?php echo $image[0]; ?>" alt="First slide" />
                 </div>
-                
-                <div class="item">
-                    <div class="container">
-
-                        <div class="carousel-caption">
-                            <h1>Miễn phí sử dụng thiết bị EDC cho 1000 đại lý đầu tiên, không cần đặt cọc.</h1>
-                            <p><a class="btn btn-true btn-orange" href="#" role="button">Tìm hiểu thêm <i class="fa fa-chevron-circle-right"></i></a></p>
-                        </div>
-
-                    </div>
-                    <div class="slide-over hidden-sm hidden-md hidden-lg">
-
-                    </div>
-
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide-3.jpg" alt="First slide" />
-                </div>
-                
-                <div class="item">
-                    <div class="container">
-
-                        <div class="carousel-caption">
-                            <h1>Chiết khấu cao</h1>
-                            <p><a class="btn btn-true" href="#" role="button">Tìm hiểu thêm <i class="fa fa-chevron-circle-right"></i></a></p>
-                        </div>
-
-                    </div>
-                    <div class="slide-over hidden-sm hidden-md hidden-lg">
-
-                    </div>
-
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide-2.jpg" alt="First slide" />
-                </div>
-                
-                
-                
-                
-                
+            <?php 
+                }
+            endforeach;
+             ?>
+     
             </div>
 
             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>

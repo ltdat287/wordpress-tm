@@ -9,3 +9,6 @@ function tmn_enqueue() {
 
 add_action( 'init', 'tmn_enqueue' );
 
+// Add more size for image to display home-slider
+add_theme_support( 'post-thumbnails' );
+add_image_size( 'home-slider', '1298', '552', array( "1", "") ); 
