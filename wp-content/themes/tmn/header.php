@@ -65,21 +65,14 @@
 					</div>
 
 					<div class="collapse navbar-collapse navbar-ex1-collapse">
-						<ul class="nav navbar-nav navbar-right">
-							<li class="active"><a href="/">Trang chủ</a></li>
-							<li><a href="gioi-thieu.html">Giới thiệu</a></li>
-							<li><a href="dich-vu.html">Dịch vụ</a></li>
-							<li class="dropdown">
-							   <a href="1.5agent.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Đại lý <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a class="active" href="tai-sao-chon-chung-toi.html">Giới thiệu chung</a></li>
-									<li><a href="chinh-sach-va-dieu-khoan.html">Chính sách</a></li>
-									<li><a href="diem-giao-dich.html">Tìm đại lý</a></li>
-								</ul>
-							</li>
-							<li><a href="tin-tuc.html">Tin tức</a></li>
-							<li><a href="lien-he.html">Liên hệ</a></li>
-						</ul>
+						<?php 
+						wp_nav_menu(array(
+							'container_class' => 'menu-header',
+							'theme_location' => 'primary',
+							'items_wrap' => '<ul id="%1$v" class="%2$s nav navbar-nav navbar-right">%3$s</ul>',
+							'walker' => new BS3_Walker_Nav_Menu,
+						));
+						 ?>
 					</div>
 				</nav> <!-- end nav-bar -->
 			</div>
