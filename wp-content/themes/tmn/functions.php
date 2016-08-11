@@ -101,3 +101,51 @@ add_filter('nav_menu_link_attributes', function($atts, $item, $args) {
  
 	return $atts;
 }, 10, 3);
+
+/**
+ * Create bread_crumb for page
+ * @return html
+ */
+function the_breadcrumb() {
+                echo '<ol class="breadcrumb color-alt">';
+        if (!is_home()) {
+                echo '<li><a href="';
+                echo get_option('home');
+                echo '">';
+                echo 'Trang chủ';
+                echo "</a></li>";
+                if (is_category() || is_single()) {
+                        echo '<li>';
+                        the_category(' </li><li> ');
+                        if (is_single()) {
+                                echo "</li><li>";
+                                the_title();
+                                echo '</li>';
+                        }
+                } elseif (is_page()) {
+                        echo '<li>';
+                        echo the_title();
+                        echo '</li>';
+                }
+        }
+        elseif (is_tag()) {single_tag_title();}
+        elseif (is_day()) {echo"<li>Archive for "; the_time('F jS, Y'); echo'</li>';}
+        elseif (is_month()) {echo"<li>Archive for "; the_time('F, Y'); echo'</li>';}
+        elseif (is_year()) {echo"<li>Archive for "; the_time('Y'); echo'</li>';}
+        elseif (is_author()) {echo"<li>Author Archive"; echo'</li>';}
+        elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
+        elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
+        echo '</ol>';
+}
+
+/**
+ * Auto add class active for menu-item
+ */
+add_filter('nav_menu_css_class' , 'special_nav_class' , 10 , 2);
+function special_nav_class($classes, $item){
+     if( in_array('current-menu-item', $classes) ){
+             $classes[] = 'active ';
+     }
+     
+     return $classes;
+}

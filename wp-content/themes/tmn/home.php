@@ -65,68 +65,39 @@
                     </div>
                 </div>
                 <div class="row">
+
+                    <?php 
+                        $args = array(
+                            'posts_per_page' => 4,
+                            'cat'            => 5,
+                        );
+                        $posts = get_posts( $args );
+                        foreach ($posts as $post) {
+                     ?>
+
                     <div class="col-xs-12 col-sm-6 col-md-3">
-                        <a href="/nap-tien-rut-tien.html">
+                        <a href="<?php the_permalink(); ?>">
                             <div class="ser-block text-center">
 
                                 <div class="ser-b-icon">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-ser-tranfer.png" alt="">
+                                    <img src="<?php echo get_template_directory_uri() . get_post_meta( $post->ID, 'icon', true ); ?>" alt="">
                                 </div>
                                 <div class="ser-b-info">
-                                    <h4 class="ser-b-i-big">Nạp tiền - rút tiền</h4>
-                                    <p class="ser-b-i-sm">Nạp tiền vào ví điện tử hoặc rút tiền mặt dễ dàng với hơn 5000 đại lý giao dịch của TrueMoney trên toàn quốc.</p>
+                                    <h4 class="ser-b-i-big"><?php the_title(); ?></h4>
+                                    <p class="ser-b-i-sm"><?php the_excerpt(); ?></p>
                                 </div>
 
                             </div>
                         </a>
                     </div>
 
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <a href="/nap-tien-dien-thoai-mua-ma-the.html">
-                            <div class="ser-block text-center">
-                                <div class="ser-b-icon">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-ser-mobile.png" alt="">
-                                </div>
-                                <div class="ser-b-info">
-                                    <h4 class="ser-b-i-big">Nạp tiền điện thoại - Mua mã thẻ</h4>
-                                    <p class="ser-b-i-sm">Nạp thẻ điện thoại, mua mã thẻ điện thoại, mã thẻ game với chiết khấu hấp dẫn.</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <a href="/chuyen-tien.html">
-                            <div class="ser-block text-center">
-                                <div class="ser-b-icon">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-ser-money.png" alt="">
-                                </div>
-                                <div class="ser-b-info">
-                                    <h4 class="ser-b-i-big">Chuyển tiền</h4>
-                                    <p class="ser-b-i-sm">Giao dịch chuyển tiền được thực hiện an toàn và đơn giản.</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6 col-md-3">
-                        <a href="/thanh-toan-hoa-don.html">
-                            <div class="ser-block text-center">
-                                <div class="ser-b-icon">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icon-ser-bill.png" alt="">
-                                </div>
-                                <div class="ser-b-info">
-                                    <h4 class="ser-b-i-big">Thanh toán hóa đơn </h4>
-                                    <p class="ser-b-i-sm">Thanh toán hóa đơn điện, nước, truyền hình cáp, Internet,... nhanh chóng và tiện lợi hơn bao giờ hết.
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
+                    <?php 
+                        }
+                     ?>
+                    
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="block-btn">
-                            <a class="btn btn-true" href="/dich-vu.html" role="button">Tìm hiểu thêm<i class="fa fa-chevron-circle-right"></i></a>
+                            <a class="btn btn-true" href="/dich-vu/" role="button">Tìm hiểu thêm<i class="fa fa-chevron-circle-right"></i></a>
                         </div>
                     </div>
 
