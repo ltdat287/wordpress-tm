@@ -149,3 +149,73 @@ function special_nav_class($classes, $item){
      
      return $classes;
 }
+
+add_filter( 'tmn_contact_email', 'tmn_send_email_contact' );
+function tmn_send_email_contact( $input ) {
+
+	$response = '';
+
+	if ( isset($input) && isset($input['submit']) ) {
+
+		//response messages
+		$missing_content = "Please supply all information.";
+		$email_invalid   = "Email Address Invalid.";
+		$message_unsent  = "Message was not sent. Try Again.";
+		$message_sent    = "Thanks! Your message has been sent.";
+		 
+		//user posted variables
+		$name  = $input['message_name'];
+		$email = $input['message_email'];
+		$title = $input['message_title'];
+		$text  = $input['message_text'];
+		 
+		//php mailer variables
+		$to = get_option('admin_email');
+		$subject = "Someone sent a message from ".get_bloginfo('name');
+		$headers = 'From: '. $email . "\r\n" .
+		  'Reply-To: ' . $email . "\r\n";
+
+		if ( ! filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+			$response = tmn_form_generate_response( 'error', $email_invalid );
+		} else {
+
+			if(empty($name) || empty($title) || empty($text)){
+				$response = tmn_form_generate_response("error", $missing_content);
+			} else {
+				$sent = wp_mail($to, $subject, strip_tags($text), $headers);
+
+				if ($sent) $response = tmn_form_generate_response("success", $message_sent); //message sent!
+				else $response = tmn_form_generate_response("error", $message_unsent); //message wasn't sent
+			}
+		}
+	}
+
+	return $response;
+}
+
+function tmn_form_generate_response($type, $message){
+
+	if($type == "success") $response = "<div class='alert alert-success'><strong>Success!</strong> {$message}</div>";
+	else $response = "<div class='alert alert-danger'> <strong>Error!</strong> {$message}</div>";
+
+	return $response;
+}
+
+//Gets post cat slug and looks for single-[cat slug].php and applies it
+add_filter('single_template', 'tmn_switch_category_post');
+
+function tmn_switch_category_post($the_template) {
+	foreach( (array) get_the_category() as $cat ) {
+		if ( file_exists(TEMPLATEPATH . "/single-{$cat->slug}.php") )
+		return TEMPLATEPATH . "/single-{$cat->slug}.php"; }
+
+	return $the_template;
+}
+
+// Add function for debug
+function dd($code) {
+	echo '<pre>';
+	print_r($code);
+	echo '</pre>';
+	die;
+}
