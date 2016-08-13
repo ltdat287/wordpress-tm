@@ -11,14 +11,20 @@
 
     <section class="content-block">
        <div class="container">
+            <?php 
+                while( have_posts() ) : the_post(); 
+                $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+                $cat_id = get_the_category( $post->ID )[0]->cat_ID;
+            ?>
+
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="news-menu">
                         <div class="left-n-menu pull-left">
                             <ul class="">
-                                <li><a class="active" href="tin-tuc.html">Tin tức - Sự kiện</a></li>
-                                <li><a href="khuyen-mai.html">Khuyến mãi</a></li>
-                                <li><a href="hinh-anh-video.html">Hình ảnh - video</a></li>
+                                <li><a <?php echo ( ($cat_id == 2) ? 'class="active"' : '' ); ?> href="http://wp-tmn.local/tin-tuc/">Tin tức - Sự kiện</a></li>
+                                <li><a <?php echo ( ($cat_id == 3) ? 'class="active"' : '' ); ?>href="http://wp-tmn.local/khuyen-mai/">Khuyến mãi</a></li>
+                                <!-- <li><a href="hinh-anh-video.html">Hình ảnh - video</a></li> -->
                             </ul>
                         </div>
                         
@@ -33,11 +39,6 @@
                     
                 </div>
             </div>
-
-            <?php 
-                while( have_posts() ) : the_post(); 
-                $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-            ?>
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

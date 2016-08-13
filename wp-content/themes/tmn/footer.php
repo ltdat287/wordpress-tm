@@ -13,13 +13,11 @@
 			
 			<div class="col-xs-12 col-sm-6 col-lg-3">
 				<h5>Liên kết</h5>
-				<ul class="for-links">
-					<li><a href="dieu-khoan-su-dung.html">Điều khoản sử dụng</a></li>
-					<li><a href="/tuyen-dung.html">Tuyển dụng</a></li>
-					<li><a href="khuyen-mai.html">Khuyến mãi</a></li>
-					<li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
-					<li><a href="gioi-thieu.html">Về chúng tôi</a></li>
-				</ul>
+				<?php 
+				wp_nav_menu(array(
+					'theme_location' => 'secondary',
+				));
+				 ?>
 			</div>
 			
 			<div class="col-xs-12 col-sm-6 col-lg-3">

@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: Tin tuc
+ Template Name: Khuyen mai
  */
 
     get_header(); ?>
@@ -21,17 +21,14 @@
                     <div class="news-menu">
                         <div class="left-n-menu pull-left">
                             <ul class="">
-                                <li><a class="active" href="<?php the_permalink(); ?>">Tin tức - Sự kiện</a></li>
-                                <li><a href="http://wp-tmn.local/khuyen-mai/">Khuyến mãi</a></li>
+                                <li><a href="http://wp-tmn.local/tin-tuc/">Tin tức - Sự kiện</a></li>
+                                <li><a class="active" href="<?php the_permalink(); ?>">Khuyến mãi</a></li>
                                 <!-- <li><a href="hinh-anh-video.html">Hình ảnh - video</a></li> -->
                             </ul>
                         </div>
                         
                         <div class="right-n-menu">
-                            <div class="news-search">
-                                <input type="text" class="form-control form-true" id="" placeholder="Tìm kiếm ...">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </div>
+                            <?php get_search_form(); ?>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -44,7 +41,7 @@
                 <?php 
                     $args = array(
                         'posts_per_page' => -1,
-                        'cat'            => 2,
+                        'cat'            => 3,
                         'post_status'    => 'publish',
                         'orderby'        => 'ID',
                         'order'          => 'asc'
@@ -66,8 +63,9 @@
                         </div>
                         <div class="new-b-info f-width">
                             <h4 class="new-b-i-big"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-                           
+                            <span style="display: block;margin-bottom: 10px;"><?php the_time( get_option('date_format') ); ?></span>
                             <p class="new-b-i-sm"><?php the_excerpt(); ?></p>
+
                         </div>
 
                     </div>
@@ -77,12 +75,12 @@
                     }
                  ?>
                 
-                <!-- 
+                
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="text-center">
                         <a class="btn btn-true" href="#" role="button"><i class="icon-refresh icons"></i> &nbsp;Tải thêm</a>
                     </div>
-                </div> -->
+                </div>
 
 
             </div>

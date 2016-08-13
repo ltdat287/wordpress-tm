@@ -1527,3 +1527,6 @@ a.up {
     color: #fff;
     background: #333333;
 }
+li.row.carrer-row.even {
+    background: #efefef;
+}
