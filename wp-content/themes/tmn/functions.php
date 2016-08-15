@@ -16,8 +16,8 @@ add_image_size( 'home-slider', '1298', '552', array( "1", "") );
 function register_tmn_menus() {
 	register_nav_menus(
 		array(
-			'primary' => __( 'Primary' ),
-			'secondary' => __( 'Secondary' )
+			'primary' => __( 'Primary', 'tmn' ),
+			'secondary' => __( 'Secondary', 'tmn' )
 		)
 	);
 } 

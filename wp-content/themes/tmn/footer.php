@@ -15,6 +15,7 @@
 				<h5>Liên kết</h5>
 				<?php 
 				wp_nav_menu(array(
+					'menu_class' => 'for-links',
 					'theme_location' => 'secondary',
 				));
 				 ?>
