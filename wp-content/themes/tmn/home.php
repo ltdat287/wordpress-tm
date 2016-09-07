@@ -162,7 +162,7 @@
                           <div class="new-block text-center">
 
                                 <div class="new-b-img">
-                                    <img src="<?php echo get_the_post_thumbnail_url($post_id, 'thumbnail'); ?>" alt="">
+                                    <img src="<?php echo get_the_post_thumbnail_url($post->ID, 'thumbnail'); ?>" alt="">
                                 </div>
                                 <div class="new-b-info">
                                     <h4 class="new-b-i-big"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>

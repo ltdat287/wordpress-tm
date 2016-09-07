@@ -90,6 +90,8 @@
         </div>
     </div>
 </footer>
+
+	<?php wp_footer(); ?>
     
     <script type="text/javascript">
 	    (function($) {

@@ -219,3 +219,9 @@ function dd($code) {
 	echo '</pre>';
 	die;
 }
+
+// Change icon-map markers Google map used wp-events-oranginze
+add_filter( 'eventorganiser_venue_marker', 'tmn_change_map_icon', 10, 2 );
+function tmn_change_map_icon( $icon, $venue_id ){
+       return 'http://cong.dk/demo/true-pin.png';
+}

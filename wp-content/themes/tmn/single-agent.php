@@ -1,86 +1,89 @@
     <?php get_header(); ?>
 
     <section class="page-header bg-img" style="background-image: url(<?php echo get_template_directory_uri(); ?>/assets/images/bg-page-header-3.jpg)">
-        <div class="container">
-            <header class="section-header border-left">
-                <?php the_breadcrumb(); ?>
-                <h1><?php the_title(); ?></h1>
-            </header>
-        </div>
+      <div class="container">
+        <header class="section-header border-left">
+          <?php the_breadcrumb(); ?>
+          <h1><?php the_title(); ?></h1>
+        </header>
+      </div>
     </section>
 
     <section class="content-block">
-       <div class="container">
-            <div class="row">
+     <div class="container">
+      <div class="row">
 
-                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="left-nav">
-                        
-                        <?php get_sidebar(); ?>
-                        
-                    </div>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+          <div class="left-nav">
+
+            <?php get_sidebar(); ?>
+
+          </div>
+        </div>
+        <?php 
+          $args = array(
+            'number' => 5,
+            'orderby' => 'city',
+            'order' => 'ASC'
+          );
+          $venues = eo_get_venues( $args );
+
+          $arr_venues = array();
+
+          foreach ($venues as $venue) {
+            $arr_venues[$venue->term_id] = $venue->name;
+          }
+        ?>
+
+        <?php while ( have_posts() ) : the_post(); ?>
+          <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+            <div class="detail-block">
+
+              <div class="agent-map">
+                <?php echo eo_get_venue_map( array_keys($arr_venues), array( 'zoom' => 16, 'height' => '400px' ) ); ?>
+              </div>
+              <div id="capture"></div>
+              <div class="agent-search"><form class="form-inline row">
+                <div class="col-sm-4"><input id="" class="form-control form-true" type="text" placeholder="Tỉnh / thành phố..." /></div>
+                <div class="col-sm-4"><input id="" class="form-control form-true" type="text" placeholder="Quận / huyện..." /></div>
+                <div class="col-sm-4"><a class="btn btn-orange btn-true">Tìm kiếm</a></div>
+              </form></div>
+              <div class="agent-list"><span class="o-text f-w-600">Tìm thấy <?php echo count($arr_venues); ?> điểm giao dịch</span>
+                <div class="line"></div>
+                <div class="agent-info">
+
+                  <?php 
+                  $i = 0;
+                  foreach ($arr_venues as $key => $value) {
+                    $i++;
+
+                    $address_details = eo_get_venue_address($key);
+                  ?>
+
+                  <ul class="" <?php echo ( ($i % 2 != 0) ? 'style="background: #f2f2f2;"' : '' ); ?>>
+                    <li>
+                      <h4 class="f-w-600"><?php echo $value ?></h4>
+                    </li>
+                    <li><i class="icon-location-pin icons"></i><b>Địa chỉ:</b> <?php echo $address_details['address'] . ' ,' . $address_details['state'] ?></li>
+                    <li><i class="icon-phone icons"></i><b>Điện thoại:</b> 0904829003</li>
+                  </ul>
+
+                  <?php 
+                  }
+                  ?>
+                  
                 </div>
-                <?php while ( have_posts() ) : the_post(); ?>
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
-                        <div class="detail-block">
-                            
-                            <?php the_content(); ?>
-
-                        </div>
-                    </div>
-                <?php endwhile; ?>
+              </div>
 
             </div>
-        </div>
-    </section>
-    
-    <?php get_footer(); ?>
+          </div>
+        <?php endwhile; ?>
 
-    <script type="text/javascript">
+      </div>
+    </div>
+  </section>
 
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 16,
-          center: {lat: 21.023885, lng: 105.823872}
-        });
-
-        setMarkers(map);
-      }
-
-      var beaches = [
-        ['', 21.026098, 105.823153, 4],
-        ['', 21.024135, 105.826758, 5],
-        ['', 21.024656, 105.821544, 3],
-        ['', 21.022743, 105.821780, 2],
-        ['', 21.021742, 105.824312, 1]
-      ];
-
-      function setMarkers(map) {
-        var image = {
-          url: 'http://cong.dk/demo/true-pin.png',
-          size: new google.maps.Size(32, 32),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(0, 32)
-        };
-        var shape = {
-          coords: [1, 1, 1, 20, 18, 20, 18, 1],
-          type: 'poly'
-        };
-        for (var i = 0; i < beaches.length; i++) {
-          var beach = beaches[i];
-          var marker = new google.maps.Marker({
-            position: {lat: beach[1], lng: beach[2]},
-            map: map,
-            icon: image,
-            shape: shape,
-            title: beach[0],
-            zIndex: beach[3]
-          });
-        }
-      }
-    </script>
-    
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADrRXBDlNHM8QMVBQVxNHmsbwrj0esxSU&callback=initMap"></script>
+  <?php get_footer(); ?>
 
 </body>
 
